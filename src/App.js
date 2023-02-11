@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { taskName: "", tasks: [] };
+  }
+
+  myTaskChangeHandler = (event) => {
+    this.setState({ taskName: event.target.value });
+    // console.log("myTaskChangeHandler", event.target.value);
+  };
+
+  addTask = () => {
+    // console.log("addTask", this.state.taskName);
+    if (this.state.taskName === "") {
+      return;
+    }
+    this.state.tasks.push(this.state.taskName);
+    // this.setState({ tasks: newTasks });
+    this.setState({ taskName: "" });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <br></br>
+        Todo List
+        <br></br>
+        <div className="aligned">
+          <img
+            src="./assets/plus.png"
+            alt="add task"
+            width="25"
+            style={{ cursor: "pointer" }}
+            title="Bấm để thêm task"
+            onClick={() => this.addTask()}
+          ></img>
+          <input
+            type="text"
+            value={this.state.taskName}
+            onChange={this.myTaskChangeHandler}
+          ></input>
+        </div>
+        <ul>
+          {this.state.tasks.map((value, index) => {
+            return <li key={index}>{value}</li>;
+          })}
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default App;
