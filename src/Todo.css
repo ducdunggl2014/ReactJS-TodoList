@@ -1,0 +1,17 @@
+.aligned {
+  display: flex;
+  align-items: center;
+}
+.Todo {
+  text-align: left;
+  margin-left: 0;
+}
+
+.done {
+  text-decoration: line-through;
+  font-size: xx-small;
+}
+
+.noCheckDone {
+  margin-left: 25px;
+}
