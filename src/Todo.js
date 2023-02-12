@@ -7,19 +7,24 @@ class Todo extends React.Component {
     // console.log("props", props);
     // this.state = { taskName: "" };
     this.state = {
-      id: props.id,
-      value: props.value,
-      done: props.done,
+      data: props.data,
     };
   }
 
-  completeTask = () => {
-    // console.log("Todo completeTask", this.props.id);
-    this.setState({ done: true });
-    this.props.completeTask(this.props.id);
-  };
+  static getDerivedStateFromProps(props, state) {
+    // console.log("getDerivedStateFromProps", props);
+    return { data: props.data };
+  }
+
+  // completeTask = () => {
+  //   // console.log("Todo completeTask", this.props.id);
+  //   // this.setState({ done: true });
+  //   this.props.completeTask(this.state.data.id);
+  // };
 
   render() {
+    // console.log("render");
+
     let checkDone = "";
     if (!this.state.done) {
       checkDone = (
@@ -29,7 +34,7 @@ class Todo extends React.Component {
           width="25"
           style={{ cursor: "pointer" }}
           title="Bấm để hoàn thành task"
-          onClick={() => this.completeTask(this.props.id)}
+          onClick={() => this.props.completeTask(this.state.data.id)}
         ></img>
       );
     }
@@ -43,10 +48,10 @@ class Todo extends React.Component {
           width="25"
           style={{ cursor: "pointer" }}
           title="Bấm vào để xóa task"
-          onClick={() => this.props.deleteTask(this.props.id)}
+          onClick={() => this.props.deleteTask(this.state.data.id)}
         ></img>
-        <span className={this.state.done ? "done" : ""}>
-          {this.state.value}
+        <span className={this.state.data.done ? "done" : ""}>
+          {this.state.data.name}
         </span>
       </div>
     );
